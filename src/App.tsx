@@ -186,11 +186,11 @@ const TestTask: React.FC = () => {
 	const containerRef = useRef<HTMLDivElement>(null)
 
 	const totalItems = items.length
-	const angleStep = 360 / totalItems
+	const angularStep = 360 / totalItems
 	const radius = 268
 
 	const activeIndex = items.findIndex(item => item.id === activeId)
-	const targetRotation = activeIndex >= 0 ? -activeIndex * angleStep : 0
+	const targetRotation = activeIndex >= 0 ? -activeIndex * angularStep : 0
 
 	useEffect(() => {
 		if (containerRef.current) {
@@ -272,7 +272,7 @@ const TestTask: React.FC = () => {
 				{/* Точки по кругу "при наведении показывает номер" и активный круг с номером */}
 				<div className='dots-container' ref={containerRef}>
 					{items.map((item, index) => {
-						const angleDeg = index * angleStep - 60
+						const angleDeg = index * angularStep - 60
 						const rad = (angleDeg * Math.PI) / 180
 						const x = radius * Math.cos(rad)
 						const y = radius * Math.sin(rad)
