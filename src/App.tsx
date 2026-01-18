@@ -157,11 +157,6 @@ const TestTask: React.FC = () => {
 
 	const swiperRef = useRef<SwiperClass | null>(null)
 
-	const updateSwiperState = (swiper: SwiperClass) => {
-		setIsBeginning(swiper.isBeginning)
-		setIsEnd(swiper.isEnd)
-	}
-
 	const [activeId, setActiveId] = useState<number>(1)
 
 	const [displayedYear, setDisplayedYear] = useState<number>(1980)
@@ -170,6 +165,11 @@ const TestTask: React.FC = () => {
 
 	const currentCategory = items.find(item => item.id === activeId)
 	const currentContent = currentCategory?.content || []
+
+	const updateSwiperState = (swiper: SwiperClass) => {
+		setIsBeginning(swiper.isBeginning)
+		setIsEnd(swiper.isEnd)
+	}
 
 	useEffect(() => {
 		setIsContentVisible(false)
@@ -199,14 +199,17 @@ const TestTask: React.FC = () => {
 				duration: 1,
 				ease: 'power2.out',
 				transformOrigin: 'center center',
+
 				onUpdate: () => {
 					const matrix = getComputedStyle(containerRef.current!).transform
+
 					if (matrix && matrix !== 'none') {
 						const values = matrix.split('(')[1].split(')')[0].split(',')
 						const a = parseFloat(values[0])
 						const b = parseFloat(values[1])
 						const rad = Math.atan2(b, a)
 						const deg = rad * (180 / Math.PI)
+
 						document.documentElement.style.setProperty(
 							'--counter-rotate',
 							`${-deg}deg`,
@@ -223,6 +226,7 @@ const TestTask: React.FC = () => {
 
 	useEffect(() => {
 		const currentItem = items.find(item => item.id === activeId)
+
 		if (!currentItem) return
 
 		const startYear = displayedYear

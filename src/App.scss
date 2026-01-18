@@ -1,8 +1,3 @@
-$active-bg: rgba(244, 245, 249, 1);
-$active-border: rgba(48, 62, 88, 0.5);
-$accent-color: #5d5fef;
-$pink-color: #ef5da8;
-
 .main-container {
 	position: relative;
 
@@ -157,8 +152,8 @@ $pink-color: #ef5da8;
 				width: 56px;
 				height: 56px;
 
-				border: 1px solid $active-border;
-				background: $active-bg;
+				border: 1px solid rgba(48, 62, 88, 0.5);
+				background: rgba(244, 245, 249, 1);
 
 				.dot-label {
 					opacity: 1;
@@ -201,10 +196,10 @@ $pink-color: #ef5da8;
 
 			transition: font-size 0.5s;
 
-			color: $accent-color;
+			color: #5d5fef;
 
 			&.last_years {
-				color: $pink-color;
+				color: #ef5da8;
 			}
 		}
 	}
