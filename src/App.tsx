@@ -1,11 +1,14 @@
-import { gsap } from 'gsap'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import type { Swiper as SwiperClass } from 'swiper/types'
+
+import { gsap } from 'gsap'
+
 import './App.scss'
 
 interface CircleItem {
@@ -166,20 +169,7 @@ const TestTask: React.FC = () => {
 	const currentCategory = items.find(item => item.id === activeId)
 	const currentContent = currentCategory?.content || []
 
-	const updateSwiperState = (swiper: SwiperClass) => {
-		setIsBeginning(swiper.isBeginning)
-		setIsEnd(swiper.isEnd)
-	}
-
-	useEffect(() => {
-		setIsContentVisible(false)
-
-		const timer = setTimeout(() => {
-			setIsContentVisible(true)
-		}, 400)
-
-		return () => clearTimeout(timer)
-	}, [activeId])
+	// Обновление состояний кнопок back и next в Swiper (back исчезает на первом слайде, next на последнем)
 
 	const yearsRef = useRef({ currentYear: 1980, currentLastYear: 1986 })
 
@@ -192,6 +182,22 @@ const TestTask: React.FC = () => {
 	const activeIndex = items.findIndex(item => item.id === activeId)
 	const targetRotation = activeIndex >= 0 ? -activeIndex * angularStep : 0
 
+	const updateSwiperState = (swiper: SwiperClass) => {
+		setIsBeginning(swiper.isBeginning)
+		setIsEnd(swiper.isEnd)
+	}
+	// хук для проявления блока с контентом
+	useEffect(() => {
+		setIsContentVisible(false)
+
+		const timer = setTimeout(() => {
+			setIsContentVisible(true)
+		}, 400)
+
+		return () => clearTimeout(timer)
+	}, [activeId])
+
+	// хук для работы круга
 	useEffect(() => {
 		if (containerRef.current) {
 			gsap.to(containerRef.current, {
@@ -224,6 +230,7 @@ const TestTask: React.FC = () => {
 		}
 	}, [targetRotation])
 
+	// хук для анимации годов
 	useEffect(() => {
 		const currentItem = items.find(item => item.id === activeId)
 
